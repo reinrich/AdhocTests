@@ -3,7 +3,7 @@ import jdk.incubator.vector.VectorSpecies;
 
 public class TestVectorAdd {
 
-    private static final VectorSpecies<Integer> I_SPECIES = IntVector.SPECIES_MAX;
+    private static final VectorSpecies<Integer> I_SPECIES = IntVector.SPECIES_128;
     private static int LENGTH = 1024;
 
     private static int[] ia1;
