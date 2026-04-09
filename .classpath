@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="vectorapi"/>
 	<classpathentry kind="src" path="vthreads"/>
 	<classpathentry kind="src" path="gc"/>
+	<classpathentry kind="src" path="synchronization"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
