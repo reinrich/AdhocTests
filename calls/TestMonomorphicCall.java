@@ -8,12 +8,12 @@ public class TestMonomorphicCall {
     }
 
     public static int dontinline_testMethod(MonoReceiver receiver) {
-        int res = receiver.targetMethod();
+        int res = receiver.dontinline_targetMethod();
         return res;
     }
 
     public static class MonoReceiver {
-        public int targetMethod() {
+        public int dontinline_targetMethod() {
             return 42;
         }
     }
