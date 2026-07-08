@@ -1,0 +1,4793 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+  <title>TestL2I OptoAssembly: Baseline vs PR</title>
+  <style type="text/css">
+  <!--
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .scroll-wrapper {
+      display: flex;
+      justify-content: center;
+      background-color: #808080;
+    }
+
+    .columns-container {
+      display: flex;
+    }
+
+    .column {
+      font-family: 'Courier New', Courier, monospace;
+      width: 96ch;
+      flex-shrink: 0;
+      padding: 20px;
+      color: #333333;
+      background-color: #FFFFFF;
+    }
+
+    #col1 {
+      border-right: 1px solid #3c3c3c;
+    }
+
+    .hi-green {
+      background-color: #90ee90;
+    }
+    .hi-pink {
+      background-color: #ffc0cb;
+    }
+
+    a {
+      color: inherit;
+      background-color: inherit;
+      font: inherit;
+      text-decoration: inherit;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  -->
+  </style>
+</head>
+<body>
+
+  <div class="scroll-wrapper">
+    <div class="columns-container">
+
+      <div class="column" id="col1">
+        <h2>BASELINE</h2>
+    <pre>
+[0] './images/jdk/bin/java'
+[1] '-cp'
+[2] 'classes'
+[3] '-Xbatch'
+[4] '-XX:+UnlockDiagnosticVMOptions'
+[5] '-XX:-LogVMOutput'
+[6] '-XX:-UseOnStackReplacement'
+[7] '-XX:-TieredCompilation'
+[8] '-XX:CICompilerCount=1'
+[9] '-XX:CompileCommand=dontinline,*.*dontinline*'
+[10] '-XX:CompileCommand=compileonly,*.*dojit*'
+[11] '-XX:+PrintOptoAssembly'
+[12] '-XX:+Verbose'
+[13] 'TestL2I'
+dscr value was 0x17
+Version: ppc64 sha aes mfdscr darn brw L1_data_cache_line_size=128
+
+ContendedPaddingWidth 128
+CompileCommand: dontinline *.*dontinline* bool dontinline = true
+CompileCommand: compileonly *.*dojit* intx compileonly = 1111
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 24 ------------------------
+{method}
+ - this oop:          0x00007fff3c401a10
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_addI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         5
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         5
+ - code start:        0x00007fff3c4019e8
+ - code end (excl):   0x00007fff3c4019ed
+ - method data:       0x00007fff3c4039e8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4019ed
+   - line 74: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c4019f6
+   - J a bci=0 len=5 slot=0
+   - J b bci=0 len=5 slot=2
+
+------------------------ OptoAssembly for Compile_id = 24 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     ADD     R3, <span class="hi-green">ConvL2I(R3)</span>, <span class="hi-green">ConvL2I(R4)</span>                             ::= addI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_addI_dojit[1, 2] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 37 ------------------------
+{method}
+ - this oop:          0x00007fff3c401ae0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_addI_2_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         6
+ - code start:        0x00007fff3c401ab8
+ - code end (excl):   0x00007fff3c401abe
+ - method data:       0x00007fff3c40d000
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401abe
+   - line 78: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401ac6
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 37 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     ADD     R3, <span class="hi-green">ConvL2I(R3)</span>, <span class="hi-green">ConvL2I(R4)</span>                             ::= addI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_addI_2_dojit[1, 2] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 38 ------------------------
+{method}
+ - this oop:          0x00007fff3c401bb0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_addI_3_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         9
+ - code start:        0x00007fff3c401b88
+ - code end (excl):   0x00007fff3c401b91
+ - method data:       0x00007fff3c40d0e0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401b91
+   - line 83: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401b96
+   - J a bci=0 len=9 slot=0
+   - J b bci=0 len=9 slot=2
+
+------------------------ OptoAssembly for Compile_id = 38 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     ADD     R14, <span class="hi-green">ConvL2I(R4)</span>, R15                                    ::= addI_reg_reg
+030     ADD     R3, R14, R15                                             ::= addI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_addI_3_dojit[1, 2] = 4 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 39 ------------------------
+{method}
+ - this oop:          0x00007fff3c401e20
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         5
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         5
+ - code start:        0x00007fff3c401df8
+ - code end (excl):   0x00007fff3c401dfd
+ - method data:       0x00007fff3c40d208
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401dfd
+   - line 95: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401e06
+   - J a bci=0 len=5 slot=0
+   - J b bci=0 len=5 slot=2
+
+------------------------ OptoAssembly for Compile_id = 39 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     SUBF    R3, R4, R3      // long + l2i                            ::= subI_regL_regL
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_dojit[1, 2] = -1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 40 ------------------------
+{method}
+ - this oop:          0x00007fff3c401ef0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_2_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         6
+ - code start:        0x00007fff3c401ec8
+ - code end (excl):   0x00007fff3c401ece
+ - method data:       0x00007fff3c40d330
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401ece
+   - line 99: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401ed6
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 40 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     <span class="hi-pink">MR      R14, R4         </span>// long-&gt;int                             ::= convL2I_reg
+030     SUBF    R3, R14, R15                                             ::= subI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_2_dojit[1, 2] = -1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4   : parm 2: int
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 49 ------------------------
+{method}
+ - this oop:          0x00007fff3c402000
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_3_dojit'
+ - signature:         '(JI)I'
+ - max stack:         3
+ - max locals:        3
+ - size of params:    3
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c2573c0: 0xbea i2c: 0x00007fff90410380 c2i: 0x00007fff90410400 c2iUV: 0x00007fff904103c0 c2iNCI: 0x00007fff90410450
+ - compiled entry     0x00007fff90410400
+ - code size:         5
+ - code start:        0x00007fff3c401f98
+ - code end (excl):   0x00007fff3c401f9d
+ - method data:       0x00007fff3c40d458
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401f9d
+   - line 103: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401fa6
+   - J a bci=0 len=5 slot=0
+   - I b bci=0 len=5 slot=2
+
+------------------------ OptoAssembly for Compile_id = 49 -----------------------
+#
+#  int ( long, half, int )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R14, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     SUBF    R3, R4, R14                                              ::= subI_reg_reg
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_3_dojit[1, 2] = -1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 55 ------------------------
+{method}
+ - this oop:          0x00007fff3c4020c8
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_4_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         6
+ - code start:        0x00007fff3c4020a8
+ - code end (excl):   0x00007fff3c4020ae
+ - method data:       0x00007fff3c40d578
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4020ae
+   - line 107: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c4020ba
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 55 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     ADDI    R3, R15, #-42                                            ::= addI_reg_imm16
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_4_dojit[1] = -41 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r048 R5:R5   : parm 4: long
+#r046 R6:R6   : parm 6: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 66 ------------------------
+{method}
+ - this oop:          0x00007fff3c401830
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_cmoveL_dojit'
+ - signature:         '(JJJJ)I'
+ - max stack:         4
+ - max locals:        8
+ - size of params:    8
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c2b5d50: 0xbebebebe i2c: 0x00007fff903e1c80 c2i: 0x00007fff903e1d00 c2iUV: 0x00007fff903e1cc0 c2iNCI: 0x00007fff903e1d50
+ - compiled entry     0x00007fff903e1d00
+ - code size:         17
+ - code start:        0x00007fff3c4017e8
+ - code end (excl):   0x00007fff3c4017f9
+ - method data:       0x000002be01040218
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4017f9
+   - line 65: 0
+ - localvar length:   4
+ - localvar start:    0x00007fff3c4017fe
+   - J a bci=0 len=17 slot=0
+   - J b bci=0 len=17 slot=2
+   - J c bci=0 len=17 slot=4
+   - J d bci=0 len=17 slot=6
+
+------------------------ OptoAssembly for Compile_id = 66 -----------------------
+#
+#  int ( long, half, long, half, long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 4 IHRP Index: 17 FRegPressure: 0 FHRP Index: 17
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R5         </span>// long-&gt;int                             ::= convL2I_reg
+02c     <span class="hi-pink">MR      R14, R6         </span>// long-&gt;int                             ::= convL2I_reg
+030     CMPW    CR6, R15, R14                                            ::= cmpI_reg_reg
+034     CMOVE   le, CR6, R3, R4
+                                                                         ::= cmovL_reg_isel
+038     <span class="hi-pink">MR      R3, R3  /</span>/ long-&gt;int                                     ::= convL2I_reg
+038     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+04c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_cmoveL_dojit[1, 2, 3, 4] = 2 OK
+dontinline_tc_cmoveL_dojit[1, 2, 4, 3] = 1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r048 R5   : parm 4: int
+#r046 R6   : parm 5: int
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 70 ------------------------
+{method}
+ - this oop:          0x00007fff3c401930
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_cmoveI_dojit'
+ - signature:         '(JJII)I'
+ - max stack:         3
+ - max locals:        6
+ - size of params:    6
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c2b5510: 0xbebeaa i2c: 0x00007fff903e2080 c2i: 0x00007fff903e2100 c2iUV: 0x00007fff903e20c0 c2iNCI: 0x00007fff903e2150
+ - compiled entry     0x00007fff903e2100
+ - code size:         15
+ - code start:        0x00007fff3c4018e8
+ - code end (excl):   0x00007fff3c4018f7
+ - method data:       0x00007fff3c40d690
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4018f7
+   - line 69: 0
+ - localvar length:   4
+ - localvar start:    0x00007fff3c4018fe
+   - J a bci=0 len=15 slot=0
+   - J b bci=0 len=15 slot=2
+   - I c bci=0 len=15 slot=4
+   - I d bci=0 len=15 slot=5
+
+------------------------ OptoAssembly for Compile_id = 70 -----------------------
+#
+#  int ( long, half, long, half, int, int )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 4 IHRP Index: 15 FRegPressure: 0 FHRP Index: 15
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     CMPW    CR6, R5, R6                                              ::= cmpI_reg_reg
+02c     CMOVE   le, CR6, R3, R4
+                                                                         ::= cmovL_reg_isel
+030     <span class="hi-pink">MR      R3, R3  /</span>/ long-&gt;int                                     ::= convL2I_reg
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_cmoveI_dojit[1, 2, 3, 4] = 2 OK
+dontinline_tc_cmoveI_dojit[1, 2, 4, 3] = 1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 71 ------------------------
+{method}
+ - this oop:          0x00007fff3c4014b0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_negI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         4
+ - code start:        0x00007fff3c401498
+ - code end (excl):   0x00007fff3c40149c
+ - method data:       0x00007fff3c40d7b8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c40149c
+   - line 42: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c4014a2
+   - J a bci=0 len=4 slot=0
+
+------------------------ OptoAssembly for Compile_id = 71 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     NEG     R3, R15                                                  ::= negI_regI
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_negI_dojit[1] = -1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 72 ------------------------
+{method}
+ - this oop:          0x00007fff3c401570
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_div_minus_1_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         5
+ - code start:        0x00007fff3c401558
+ - code end (excl):   0x00007fff3c40155d
+ - method data:       0x00007fff3c40d8d0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c40155d
+   - line 46: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c401562
+   - J a bci=0 len=5 slot=0
+
+------------------------ OptoAssembly for Compile_id = 72 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     NEG     R3, R15                                                  ::= negI_regI
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_div_minus_1_dojit[1] = -1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 73 ------------------------
+{method}
+ - this oop:          0x00007fff3c401648
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_div_2_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         13
+ - code start:        0x00007fff3c401618
+ - code end (excl):   0x00007fff3c401625
+ - method data:       0x00007fff3c40d9e8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401625
+   - line 51: 0
+   - line 52: 5
+   - line 54: 7
+ - localvar length:   2
+ - localvar start:    0x00007fff3c40162e
+   - J a bci=0 len=13 slot=0
+   - J b bci=0 len=13 slot=2
+
+------------------------ OptoAssembly for Compile_id = 73 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B4 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( B3 B2 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R4         </span>// long-&gt;int                             ::= convL2I_reg
+02c     CMPWI   CR5, R15, #0                                             ::= cmpI_reg_imm16
+030     Bne     CR5, B3  P=0.666568 C=6784.000000                        ::= branchCon
+
+034     B2: #   out( B4 ) &lt;- in( B1 )  Freq: 0.333432 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+034     LI      R3, #0                                                   ::= loadConI16
+038     B       B4                                                       ::= branch
+
+03c     B3: #   out( B4 ) &lt;- in( B1 )  Freq: 0.666568 IDom: 1/#3 RegPressure: 3 IHRP Index: 6 FRegPressure: 0 FHRP Index: 6
+03c     <span class="hi-pink">MR      R17, R3         </span>// long-&gt;int                             ::= convL2I_reg
+040     DIVW    R3, R17, R15    // /not-1                                ::= divI_reg_regnotMinus1
+044     CMPWI   CR6, R15, #-1                                            ::= cmpI_reg_imm16
+048     CMOVE   R3, neg(R17), CR6                                        ::= cmovI_bne_negI_reg
+
+050     B4: #   out( N1 ) &lt;- in( B2 B3 )  Freq: 1 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+050     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+064     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_div_2_dojit[27, 3] = 9 OK
+dontinline_tc_div_2_dojit[27, 0] = 0 OK
+dontinline_tc_div_2_dojit[27, 1] = 27 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 74 ------------------------
+{method}
+ - this oop:          0x00007fff3c401730
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_udiv_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         15
+ - code start:        0x00007fff3c401700
+ - code end (excl):   0x00007fff3c40170f
+ - method data:       0x00007fff3c40db30
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c40170f
+   - line 58: 0
+   - line 59: 5
+   - line 61: 7
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401716
+   - J a bci=0 len=15 slot=0
+   - J b bci=0 len=15 slot=2
+
+------------------------ OptoAssembly for Compile_id = 74 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B3 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( B4 B2 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R4         </span>// long-&gt;int                             ::= convL2I_reg
+02c     CMPWI   CR5, R15, #0                                             ::= cmpI_reg_imm16
+030     Bne     CR5, B4  P=0.500000 C=6784.000000                        ::= branchCon
+
+034     B2: #   out( B3 ) &lt;- in( B1 )  Freq: 0.5 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+034     LI      R3, #0                                                   ::= loadConI16
+
+038     B3: #   out( N1 ) &lt;- in( B2 B4 )  Freq: 1 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+038     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+04c     BLR             // branch to link register                       ::= Ret
+
+050     B4: #   out( B3 ) &lt;- in( B1 )  Freq: 0.5 IDom: 1/#3 RegPressure: 2 IHRP Index: 4 FRegPressure: 0 FHRP Index: 4
+050     <span class="hi-pink">MR      R14, R3         </span>// long-&gt;int                             ::= convL2I_reg
+054     DIVWU   R3, R14, R15                                             ::= udivI_reg_reg
+058     B       B3                                                       ::= branch
+
+--------------------------------------------------------------------------------
+dontinline_tc_udiv_dojit[27, 3] = 9 OK
+dontinline_tc_udiv_dojit[27, 0] = 0 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 75 ------------------------
+{method}
+ - this oop:          0x00007fff3c4013f0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_absI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         6
+ - code start:        0x00007fff3c4013d8
+ - code end (excl):   0x00007fff3c4013de
+ - method data:       0x00007fff3c40dcb0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4013de
+   - line 38: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c4013e2
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 75 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     SRAWI   R14, R15, #31                                            ::= signmask32I_regI
+030     XOR     R17, R14, R15                                            ::= xorI_reg_reg
+034     SUBF    R3, R14, R17                                             ::= subI_reg_reg
+038     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+04c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_absI_dojit[1] = 1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 76 ------------------------
+{method}
+ - this oop:          0x00007fff3c402198
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_mulI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         6
+ - code start:        0x00007fff3c402170
+ - code end (excl):   0x00007fff3c402176
+ - method data:       0x00007fff3c40de00
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402176
+   - line 111: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c40217e
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 76 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     <span class="hi-pink">MR      R14, R4         </span>// long-&gt;int                             ::= convL2I_reg
+030     MULLW   R3, R15, R14                                             ::= mulI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_mulI_dojit[1, 2] = 2 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 77 ------------------------
+{method}
+ - this oop:          0x00007fff3c402260
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_mulI_2_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         7
+ - code start:        0x00007fff3c402240
+ - code end (excl):   0x00007fff3c402247
+ - method data:       0x00007fff3c40df28
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402247
+   - line 115: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c402252
+   - J a bci=0 len=7 slot=0
+
+------------------------ OptoAssembly for Compile_id = 77 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     MULLI   R3, R15, #12345                                          ::= mulI_reg_imm16
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_mulI_2_dojit[2] = 24690 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 84 ------------------------
+{method}
+ - this oop:          0x00007fff3c402330
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_cmpI_imm_dojit'
+ - signature:         '(J)J'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         12
+ - code start:        0x00007fff3c402308
+ - code end (excl):   0x00007fff3c402314
+ - method data:       0x00007fff3c42bc48
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402314
+   - line 119: 0
+   - line 120: 8
+   - line 122: 10
+ - localvar length:   1
+ - localvar start:    0x00007fff3c402322
+   - J a bci=0 len=12 slot=0
+
+------------------------ OptoAssembly for Compile_id = 84 -----------------------
+#
+#  long/half ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 3 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     LIS     R14, #0.hi      // long                                  ::= loadConL32hi16
+030     CMPWI   CR5, R15, #12345                                         ::= cmpI_reg_imm16
+034     CMOVE   ge, CR5, R3, R14
+                                                                         ::= cmovL_reg_isel
+038     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+04c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_cmpI_imm_dojit[2] = -4294967294 OK
+dontinline_tc_cmpI_imm_dojit[12345] = 0 OK
+dontinline_tc_cmpI_imm_dojit[12346] = 0 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 85 ------------------------
+{method}
+ - this oop:          0x00007fff3c4023f0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_arsh_imm_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         5
+ - code start:        0x00007fff3c4023d8
+ - code end (excl):   0x00007fff3c4023dd
+ - method data:       0x00007fff3c42bd80
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4023dd
+   - line 126: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c4023e2
+   - J a bci=0 len=5 slot=0
+
+------------------------ OptoAssembly for Compile_id = 85 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     SRAWI   R3, R15, (#5 &amp; 0x1f)                                     ::= arShiftI_reg_imm
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_arsh_imm_dojit[12345] = 385 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 86 ------------------------
+{method}
+ - this oop:          0x00007fff3c401c80
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_andI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         6
+ - code start:        0x00007fff3c401c58
+ - code end (excl):   0x00007fff3c401c5e
+ - method data:       0x00007fff3c42be98
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401c5e
+   - line 87: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401c66
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 86 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     <span class="hi-pink">MR      R14, R4         </span>// long-&gt;int                             ::= convL2I_reg
+030     AND     R3, R15, R14                                             ::= andI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_andI_dojit[1, 2] = 0 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 87 ------------------------
+{method}
+ - this oop:          0x00007fff3c401d50
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_orI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         6
+ - code start:        0x00007fff3c401d28
+ - code end (excl):   0x00007fff3c401d2e
+ - method data:       0x00007fff3c42f000
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c401d2e
+   - line 91: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c401d36
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 87 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     <span class="hi-pink">MR      R14, R4         </span>// long-&gt;int                             ::= convL2I_reg
+030     OR      R3, R15, R14                                             ::= orI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_orI_dojit[1, 2] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 88 ------------------------
+{method}
+ - this oop:          0x00007fff3c4024c0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_andcI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c25d0c0: 0xbebe i2c: 0x00007fff9040d100 c2i: 0x00007fff9040d180 c2iUV: 0x00007fff9040d140 c2iNCI: 0x00007fff9040d1d0
+ - compiled entry     0x00007fff9040d180
+ - code size:         8
+ - code start:        0x00007fff3c402498
+ - code end (excl):   0x00007fff3c4024a0
+ - method data:       0x00007fff3c42f128
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4024a0
+   - line 130: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff3c4024a6
+   - J a bci=0 len=8 slot=0
+   - J b bci=0 len=8 slot=2
+
+------------------------ OptoAssembly for Compile_id = 88 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     <span class="hi-pink">MR      R14, R4         </span>// long-&gt;int                             ::= convL2I_reg
+030     ANDW    R3, xori(R15, #-1), R14                                  ::= andcI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_andcI_dojit[1, 2] = 2 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 89 ------------------------
+{method}
+ - this oop:          0x00007fff3c402588
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_conv2B_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         11
+ - code start:        0x00007fff3c402568
+ - code end (excl):   0x00007fff3c402573
+ - method data:       0x00007fff3c42f250
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402573
+   - line 134: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c40257a
+   - J a bci=0 len=11 slot=0
+
+------------------------ OptoAssembly for Compile_id = 89 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     CNTLZW  R14, R15                                                 ::= countLeadingZerosI
+030     SRWI    R15, R14, (#5 &amp; 0x1f)                                    ::= urShiftI_reg_imm
+034     XORI    R3, R15, #1                                              ::= xorI_reg_uimm16
+038     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+04c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_conv2B_dojit[0] = 0 OK
+dontinline_tc_conv2B_dojit[2] = 1 OK
+dontinline_tc_conv2B_dojit[3] = 1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3   : parm 0: int
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 93 ------------------------
+{method}
+ - this oop:          0x00007fff3c402648
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_convL2II2L_dojit'
+ - signature:         '(I)I'
+ - max stack:         3
+ - max locals:        1
+ - size of params:    1
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c0b1930: 0xa i2c: 0x00007fff90464d00 c2i: 0x00007fff90464d80 c2iUV: 0x00007fff90464d40 c2iNCI: 0x00007fff90464dd0
+ - compiled entry     0x00007fff90464d80
+ - code size:         4
+ - code start:        0x00007fff3c402630
+ - code end (excl):   0x00007fff3c402634
+ - method data:       0x00007fff3c42f3a0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402634
+   - line 139: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c40263a
+   - I a bci=0 len=4 slot=0
+
+------------------------ OptoAssembly for Compile_id = 93 -----------------------
+#
+#  int ( int )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 9 FRegPressure: 0 FHRP Index: 9
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+03c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_convL2II2L_dojit[0] = 0 OK
+dontinline_tc_convL2II2L_dojit[2] = 2 OK
+dontinline_tc_convL2II2L_dojit[3] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 94 ------------------------
+{method}
+ - this oop:          0x00007fff3c402708
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_convL2I_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         3
+ - code start:        0x00007fff3c4026f0
+ - code end (excl):   0x00007fff3c4026f3
+ - method data:       0x00007fff3c42f4b0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4026f3
+   - line 143: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c4026fa
+   - J a bci=0 len=3 slot=0
+
+------------------------ OptoAssembly for Compile_id = 94 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R3, R3  /</span>/ long-&gt;int                                     ::= convL2I_reg
+028     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+03c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_convL2I_dojit[0] = 0 OK
+dontinline_tc_convL2I_dojit[2] = 2 OK
+dontinline_tc_convL2I_dojit[3] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 95 ------------------------
+{method}
+ - this oop:          0x00007fff3c4027c8
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_convI2L_dojit'
+ - signature:         '(J)J'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         4
+ - code start:        0x00007fff3c4027b0
+ - code end (excl):   0x00007fff3c4027b4
+ - method data:       0x00007fff3c42f5c8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c4027b4
+   - line 147: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c4027ba
+   - J a bci=0 len=4 slot=0
+
+------------------------ OptoAssembly for Compile_id = 95 -----------------------
+#
+#  long/half ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     EXTSW   R3, R3  // long-&gt;long                                    ::= sxtI_L2L_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_convI2L_dojit[0] = 0 OK
+dontinline_tc_convI2L_dojit[2] = 2 OK
+dontinline_tc_convI2L_dojit[3] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 96 ------------------------
+{method}
+ - this oop:          0x00007fff3c402890
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_popcountI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         6
+ - code start:        0x00007fff3c402870
+ - code end (excl):   0x00007fff3c402876
+ - method data:       0x00007fff3c42f6e0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402876
+   - line 151: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c402882
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 96 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     POPCNTW R3, R15                                                  ::= popCountI
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_popcountI_dojit[0] = 0 OK
+dontinline_tc_popcountI_dojit[2] = 1 OK
+dontinline_tc_popcountI_dojit[3] = 2 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 97 ------------------------
+{method}
+ - this oop:          0x00007fff3c402958
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_CountTrailingZerosI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         6
+ - code start:        0x00007fff3c402938
+ - code end (excl):   0x00007fff3c40293e
+ - method data:       0x00007fff3c42f830
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c40293e
+   - line 155: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c40294a
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 97 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     CNTTZW  R3, R15                                                  ::= countTrailingZerosI_cnttzw
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_CountTrailingZerosI_dojit[0] = 32 OK
+dontinline_tc_CountTrailingZerosI_dojit[2] = 1 OK
+dontinline_tc_CountTrailingZerosI_dojit[3] = 0 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 98 ------------------------
+{method}
+ - this oop:          0x00007fff3c402a20
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_ReverseBytesI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         6
+ - code start:        0x00007fff3c402a00
+ - code end (excl):   0x00007fff3c402a06
+ - method data:       0x00007fff3c42f980
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402a06
+   - line 159: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c402a12
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 98 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     BRW  R3, R15                                                     ::= bytes_reverse_int
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_ReverseBytesI_dojit[0] = 0 OK
+dontinline_tc_ReverseBytesI_dojit[2] = 33554432 OK
+dontinline_tc_ReverseBytesI_dojit[3] = 50331648 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 99 ------------------------
+{method}
+ - this oop:          0x00007fff3c402ae8
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff3c400150 constant pool [324]/BSMs[20] {0x00007fff3c400150} for public 'TestL2I' cache=0x00007fff3c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_ReverseBytesUS_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff9035d200
+ - adapters:          AHE@0x00007fff9c253340: 0xbe i2c: 0x00007fff9041a700 c2i: 0x00007fff9041a780 c2iUV: 0x00007fff9041a740 c2iNCI: 0x00007fff9041a7d0
+ - compiled entry     0x00007fff9041a780
+ - code size:         7
+ - code start:        0x00007fff3c402ac8
+ - code end (excl):   0x00007fff3c402acf
+ - method data:       0x00007fff3c42fad0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff3c402acf
+   - line 163: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff3c402ada
+   - J a bci=0 len=7 slot=0
+
+------------------------ OptoAssembly for Compile_id = 99 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     EXTSH   R14, R15        // short-&gt;int                            ::= convS2I_reg
+030     BRH   R3, R14
+        EXTSH R3, R3                                                     ::= bytes_reverse_short
+038     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+04c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_ReverseBytesUS_dojit[0] = 0 OK
+dontinline_tc_ReverseBytesUS_dojit[2] = 512 OK
+dontinline_tc_ReverseBytesUS_dojit[3] = 768 OK
+</pre>
+        <div class="content-spacer"></div>
+      </div>
+
+      <div class="column" id="col2">
+        <h2>PR</h2>
+    <pre>
+[0] './images/jdk/bin/java'
+[1] '-cp'
+[2] 'classes'
+[3] '-Xbatch'
+[4] '-XX:+UnlockDiagnosticVMOptions'
+[5] '-XX:-LogVMOutput'
+[6] '-XX:-UseOnStackReplacement'
+[7] '-XX:-TieredCompilation'
+[8] '-XX:CICompilerCount=1'
+[9] '-XX:CompileCommand=dontinline,*.*dontinline*'
+[10] '-XX:CompileCommand=compileonly,*.*dojit*'
+[11] '-XX:+PrintOptoAssembly'
+[12] '-XX:+Verbose'
+[13] 'TestL2I'
+dscr value was 0x17
+Version: ppc64 sha aes mfdscr darn brw L1_data_cache_line_size=128
+
+ContendedPaddingWidth 128
+CompileCommand: dontinline *.*dontinline* bool dontinline = true
+CompileCommand: compileonly *.*dojit* intx compileonly = 1111
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 24 ------------------------
+{method}
+ - this oop:          0x00007fff1c401a10
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_addI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         5
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         5
+ - code start:        0x00007fff1c4019e8
+ - code end (excl):   0x00007fff1c4019ed
+ - method data:       0x00007fff1c4039e8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4019ed
+   - line 74: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c4019f6
+   - J a bci=0 len=5 slot=0
+   - J b bci=0 len=5 slot=2
+
+------------------------ OptoAssembly for Compile_id = 24 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     ADD     R3, <span class="hi-green">ConvL2I(R3)</span>, <span class="hi-green">ConvL2I(R4)</span>                             ::= addI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_addI_dojit[1, 2] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 37 ------------------------
+{method}
+ - this oop:          0x00007fff1c401ae0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_addI_2_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         6
+ - code start:        0x00007fff1c401ab8
+ - code end (excl):   0x00007fff1c401abe
+ - method data:       0x00007fff1c40d000
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401abe
+   - line 78: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401ac6
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 37 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     ADD     R3, <span class="hi-green">ConvL2I(R3)</span>, <span class="hi-green">ConvL2I(R4)</span>                             ::= addI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_addI_2_dojit[1, 2] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 38 ------------------------
+{method}
+ - this oop:          0x00007fff1c401bb0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_addI_3_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         9
+ - code start:        0x00007fff1c401b88
+ - code end (excl):   0x00007fff1c401b91
+ - method data:       0x00007fff1c40d0e0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401b91
+   - line 83: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401b96
+   - J a bci=0 len=9 slot=0
+   - J b bci=0 len=9 slot=2
+
+------------------------ OptoAssembly for Compile_id = 38 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 13 FRegPressure: 0 FHRP Index: 13
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R3         </span>// long-&gt;int                             ::= convL2I_reg
+02c     ADD     R14, <span class="hi-green">ConvL2I(R4)</span>, R15                                    ::= addI_reg_reg
+030     ADD     R3, R14, R15                                             ::= addI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_addI_3_dojit[1, 2] = 4 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 39 ------------------------
+{method}
+ - this oop:          0x00007fff1c401e20
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         5
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         5
+ - code start:        0x00007fff1c401df8
+ - code end (excl):   0x00007fff1c401dfd
+ - method data:       0x00007fff1c40d208
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401dfd
+   - line 95: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401e06
+   - J a bci=0 len=5 slot=0
+   - J b bci=0 len=5 slot=2
+
+------------------------ OptoAssembly for Compile_id = 39 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     SUBF    R3, R4, R3      // long + l2i                            ::= subI_regL_regL
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_dojit[1, 2] = -1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 40 ------------------------
+{method}
+ - this oop:          0x00007fff1c401ef0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_2_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         6
+ - code start:        0x00007fff1c401ec8
+ - code end (excl):   0x00007fff1c401ece
+ - method data:       0x00007fff1c40d330
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401ece
+   - line 99: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401ed6
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 40 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     SUBF    R3, <span class="hi-green">ConvL2I(R4)</span>, <span class="hi-green">ConvL2I(R3)</span>                             ::= subI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_2_dojit[1, 2] = -1 OK
+
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4   : parm 2: int
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 49 ------------------------
+{method}
+ - this oop:          0x00007fff1c402000
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_3_dojit'
+ - signature:         '(JI)I'
+ - max stack:         3
+ - max locals:        3
+ - size of params:    3
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff80257360: 0xbea i2c: 0x00007fff74410380 c2i: 0x00007fff74410400 c2iUV: 0x00007fff744103c0 c2iNCI: 0x00007fff74410450
+ - compiled entry     0x00007fff74410400
+ - code size:         5
+ - code start:        0x00007fff1c401f98
+ - code end (excl):   0x00007fff1c401f9d
+ - method data:       0x00007fff1c40d458
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401f9d
+   - line 103: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401fa6
+   - J a bci=0 len=5 slot=0
+   - I b bci=0 len=5 slot=2
+
+------------------------ OptoAssembly for Compile_id = 49 -----------------------
+#
+#  int ( long, half, int )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     SUBF    R3, R4, <span class="hi-green">ConvL2I(R3)</span>                                      ::= subI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_3_dojit[1, 2] = -1 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 55 ------------------------
+{method}
+ - this oop:          0x00007fff1c4020c8
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_subI_4_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         6
+ - code start:        0x00007fff1c4020a8
+ - code end (excl):   0x00007fff1c4020ae
+ - method data:       0x00007fff1c40d578
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4020ae
+   - line 107: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c4020ba
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 55 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     ADDI    R3, <span class="hi-green">ConvL2I(R3)</span>, #-42                                    ::= addI_reg_imm16
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_subI_4_dojit[1] = -41 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r048 R5:R5   : parm 4: long
+#r046 R6:R6   : parm 6: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 66 ------------------------
+{method}
+ - this oop:          0x00007fff1c401830
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_cmoveL_dojit'
+ - signature:         '(JJJJ)I'
+ - max stack:         4
+ - max locals:        8
+ - size of params:    8
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802b6100: 0xbebebebe i2c: 0x00007fff743e4400 c2i: 0x00007fff743e4480 c2iUV: 0x00007fff743e4440 c2iNCI: 0x00007fff743e44d0
+ - compiled entry     0x00007fff743e4480
+ - code size:         17
+ - code start:        0x00007fff1c4017e8
+ - code end (excl):   0x00007fff1c4017f9
+ - method data:       0x000002e001040218
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4017f9
+   - line 65: 0
+ - localvar length:   4
+ - localvar start:    0x00007fff1c4017fe
+   - J a bci=0 len=17 slot=0
+   - J b bci=0 len=17 slot=2
+   - J c bci=0 len=17 slot=4
+   - J d bci=0 len=17 slot=6
+
+------------------------ OptoAssembly for Compile_id = 66 -----------------------
+#
+#  int ( long, half, long, half, long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 4 IHRP Index: 15 FRegPressure: 0 FHRP Index: 15
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     CMPW    CR6, <span class="hi-green">ConvL2I(R5)</span>, <span class="hi-green">ConvL2I(R6)</span>                            ::= cmpI_reg_reg
+02c     CMOVE   le, CR6, R3, R4
+                                                                         ::= cmovL_reg_isel
+030     <span class="hi-pink">MR      R3, R3  /</span>/ long-&gt;int                                     ::= convL2I_reg
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_cmoveL_dojit[1, 2, 3, 4] = 2 OK
+dontinline_tc_cmoveL_dojit[1, 2, 4, 3] = 1 OK
+
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r048 R5   : parm 4: int
+#r046 R6   : parm 5: int
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 70 ------------------------
+{method}
+ - this oop:          0x00007fff1c401930
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_cmoveI_dojit'
+ - signature:         '(JJII)I'
+ - max stack:         3
+ - max locals:        6
+ - size of params:    6
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802b58c0: 0xbebeaa i2c: 0x00007fff743e6680 c2i: 0x00007fff743e6700 c2iUV: 0x00007fff743e66c0 c2iNCI: 0x00007fff743e6750
+ - compiled entry     0x00007fff743e6700
+ - code size:         15
+ - code start:        0x00007fff1c4018e8
+ - code end (excl):   0x00007fff1c4018f7
+ - method data:       0x00007fff1c40d690
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4018f7
+   - line 69: 0
+ - localvar length:   4
+ - localvar start:    0x00007fff1c4018fe
+   - J a bci=0 len=15 slot=0
+   - J b bci=0 len=15 slot=2
+   - I c bci=0 len=15 slot=4
+   - I d bci=0 len=15 slot=5
+
+------------------------ OptoAssembly for Compile_id = 70 -----------------------
+#
+#  int ( long, half, long, half, int, int )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 4 IHRP Index: 15 FRegPressure: 0 FHRP Index: 15
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     CMPW    CR6, R5, R6                                              ::= cmpI_reg_reg
+02c     CMOVE   le, CR6, R3, R4
+                                                                         ::= cmovL_reg_isel
+030     <span class="hi-pink">MR      R3, R3  /</span>/ long-&gt;int                                     ::= convL2I_reg
+030     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+044     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_cmoveI_dojit[1, 2, 3, 4] = 2 OK
+dontinline_tc_cmoveI_dojit[1, 2, 4, 3] = 1 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 71 ------------------------
+{method}
+ - this oop:          0x00007fff1c4014b0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_negI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         4
+ - code start:        0x00007fff1c401498
+ - code end (excl):   0x00007fff1c40149c
+ - method data:       0x00007fff1c40d7b8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c40149c
+   - line 42: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c4014a2
+   - J a bci=0 len=4 slot=0
+
+------------------------ OptoAssembly for Compile_id = 71 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     NEG     R3, <span class="hi-green">ConvL2I(R3)</span>                                          ::= negI_regI
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_negI_dojit[1] = -1 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 72 ------------------------
+{method}
+ - this oop:          0x00007fff1c401570
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_div_minus_1_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         5
+ - code start:        0x00007fff1c401558
+ - code end (excl):   0x00007fff1c40155d
+ - method data:       0x00007fff1c40d8d0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c40155d
+   - line 46: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c401562
+   - J a bci=0 len=5 slot=0
+
+------------------------ OptoAssembly for Compile_id = 72 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     NEG     R3, <span class="hi-green">ConvL2I(R3)</span>                                          ::= negI_regI
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_div_minus_1_dojit[1] = -1 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 73 ------------------------
+{method}
+ - this oop:          0x00007fff1c401648
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_div_2_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         13
+ - code start:        0x00007fff1c401618
+ - code end (excl):   0x00007fff1c401625
+ - method data:       0x00007fff1c40d9e8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401625
+   - line 51: 0
+   - line 52: 5
+   - line 54: 7
+ - localvar length:   2
+ - localvar start:    0x00007fff1c40162e
+   - J a bci=0 len=13 slot=0
+   - J b bci=0 len=13 slot=2
+
+------------------------ OptoAssembly for Compile_id = 73 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B4 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( B3 B2 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R4         </span>// long-&gt;int                             ::= convL2I_reg
+02c     CMPWI   CR5, R15, #0                                             ::= cmpI_reg_imm16
+030     Bne     CR5, B3  P=0.666568 C=6784.000000                        ::= branchCon
+
+034     B2: #   out( B4 ) &lt;- in( B1 )  Freq: 0.333432 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+034     LI      R3, #0                                                   ::= loadConI16
+038     B       B4                                                       ::= branch
+
+03c     B3: #   out( B4 ) &lt;- in( B1 )  Freq: 0.666568 IDom: 1/#3 RegPressure: 3 IHRP Index: 6 FRegPressure: 0 FHRP Index: 6
+03c     <span class="hi-pink">MR      R14, R3         </span>// spill copy                            ::= MemToRegSpillCopy
+040     DIVW    R3, <span class="hi-green">ConvL2I(R3)</span>, R15    // /not-1                        ::= divI_reg_regnotMinus1
+044     CMPWI   CR5, R15, #-1                                            ::= cmpI_reg_imm16
+048     CMOVE   R3, neg(<span class="hi-green">ConvL2I(R14)</span>), CR5                               ::= cmovI_bne_negI_reg
+
+050     B4: #   out( N1 ) &lt;- in( B2 B3 )  Freq: 1 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+050     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+064     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_div_2_dojit[27, 3] = 9 OK
+dontinline_tc_div_2_dojit[27, 0] = 0 OK
+dontinline_tc_div_2_dojit[27, 1] = 27 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 74 ------------------------
+{method}
+ - this oop:          0x00007fff1c401730
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_udiv_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         15
+ - code start:        0x00007fff1c401700
+ - code end (excl):   0x00007fff1c40170f
+ - method data:       0x00007fff1c40db30
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c40170f
+   - line 58: 0
+   - line 59: 5
+   - line 61: 7
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401716
+   - J a bci=0 len=15 slot=0
+   - J b bci=0 len=15 slot=2
+
+------------------------ OptoAssembly for Compile_id = 74 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B3 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( B4 B2 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R15, R4         </span>// long-&gt;int                             ::= convL2I_reg
+02c     CMPWI   CR5, R15, #0                                             ::= cmpI_reg_imm16
+030     Bne     CR5, B4  P=0.500000 C=6784.000000                        ::= branchCon
+
+034     B2: #   out( B3 ) &lt;- in( B1 )  Freq: 0.5 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+034     LI      R3, #0                                                   ::= loadConI16
+
+038     B3: #   out( N1 ) &lt;- in( B2 B4 )  Freq: 1 IDom: 1/#3 RegPressure: 1 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+038     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+04c     BLR             // branch to link register                       ::= Ret
+
+050     B4: #   out( B3 ) &lt;- in( B1 )  Freq: 0.5 IDom: 1/#3 RegPressure: 2 IHRP Index: 3 FRegPressure: 0 FHRP Index: 3
+050     DIVWU   R3, <span class="hi-green">ConvL2I(R3)</span>, R15                                     ::= udivI_reg_reg
+054     B       B3                                                       ::= branch
+
+--------------------------------------------------------------------------------
+dontinline_tc_udiv_dojit[27, 3] = 9 OK
+dontinline_tc_udiv_dojit[27, 0] = 0 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 75 ------------------------
+{method}
+ - this oop:          0x00007fff1c4013f0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_absI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         6
+ - code start:        0x00007fff1c4013d8
+ - code end (excl):   0x00007fff1c4013de
+ - method data:       0x00007fff1c40dcb0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4013de
+   - line 38: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c4013e2
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 75 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     SRAWI   R15, <span class="hi-green">ConvL2I(R3)</span>, #31                                    ::= signmask32I_regI
+02c     XOR     R14, R15, <span class="hi-green">ConvL2I(R3)</span>                                    ::= xorI_reg_reg
+030     SUBF    R3, R15, R14                                             ::= subI_reg_reg
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_absI_dojit[1] = 1 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 76 ------------------------
+{method}
+ - this oop:          0x00007fff1c402198
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_mulI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         6
+ - code start:        0x00007fff1c402170
+ - code end (excl):   0x00007fff1c402176
+ - method data:       0x00007fff1c40de00
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402176
+   - line 111: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c40217e
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 76 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     MULLW   R3, <span class="hi-green">ConvL2I(R3)</span>, <span class="hi-green">ConvL2I(R4)</span>                             ::= mulI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_mulI_dojit[1, 2] = 2 OK
+
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 77 ------------------------
+{method}
+ - this oop:          0x00007fff1c402260
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_mulI_2_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         7
+ - code start:        0x00007fff1c402240
+ - code end (excl):   0x00007fff1c402247
+ - method data:       0x00007fff1c40df28
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402247
+   - line 115: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c402252
+   - J a bci=0 len=7 slot=0
+
+------------------------ OptoAssembly for Compile_id = 77 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     MULLI   R3, <span class="hi-green">ConvL2I(R3)</span>, #12345                                  ::= mulI_reg_imm16
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_mulI_2_dojit[2] = 24690 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 84 ------------------------
+{method}
+ - this oop:          0x00007fff1c402330
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_cmpI_imm_dojit'
+ - signature:         '(J)J'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         12
+ - code start:        0x00007fff1c402308
+ - code end (excl):   0x00007fff1c402314
+ - method data:       0x00007fff1c42bc48
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402314
+   - line 119: 0
+   - line 120: 8
+   - line 122: 10
+ - localvar length:   1
+ - localvar start:    0x00007fff1c402322
+   - J a bci=0 len=12 slot=0
+
+------------------------ OptoAssembly for Compile_id = 84 -----------------------
+#
+#  long/half ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     LIS     R14, #0.hi      // long                                  ::= loadConL32hi16
+02c     CMPWI   CR6, <span class="hi-green">ConvL2I(R3)</span>, #12345                                 ::= cmpI_reg_imm16
+030     CMOVE   ge, CR6, R3, R14
+                                                                         ::= cmovL_reg_isel
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_cmpI_imm_dojit[2] = -4294967294 OK
+dontinline_tc_cmpI_imm_dojit[12345] = 0 OK
+dontinline_tc_cmpI_imm_dojit[12346] = 0 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 85 ------------------------
+{method}
+ - this oop:          0x00007fff1c4023f0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_arsh_imm_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         5
+ - code start:        0x00007fff1c4023d8
+ - code end (excl):   0x00007fff1c4023dd
+ - method data:       0x00007fff1c42bd80
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4023dd
+   - line 126: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c4023e2
+   - J a bci=0 len=5 slot=0
+
+------------------------ OptoAssembly for Compile_id = 85 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     SRAWI   R3, <span class="hi-green">ConvL2I(R3)</span>, (#5 &amp; 0x1f)                             ::= arShiftI_reg_imm
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_arsh_imm_dojit[12345] = 385 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 86 ------------------------
+{method}
+ - this oop:          0x00007fff1c401c80
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_andI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         6
+ - code start:        0x00007fff1c401c58
+ - code end (excl):   0x00007fff1c401c5e
+ - method data:       0x00007fff1c42be98
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401c5e
+   - line 87: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401c66
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 86 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     AND     R3, <span class="hi-green">ConvL2I(R3)</span>, <span class="hi-green">ConvL2I(R4)</span>                             ::= andI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_andI_dojit[1, 2] = 0 OK
+
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 87 ------------------------
+{method}
+ - this oop:          0x00007fff1c401d50
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_orI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         6
+ - code start:        0x00007fff1c401d28
+ - code end (excl):   0x00007fff1c401d2e
+ - method data:       0x00007fff1c42f000
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c401d2e
+   - line 91: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c401d36
+   - J a bci=0 len=6 slot=0
+   - J b bci=0 len=6 slot=2
+
+------------------------ OptoAssembly for Compile_id = 87 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     OR      R3, <span class="hi-green">ConvL2I(R3)</span>, <span class="hi-green">ConvL2I(R4)</span>                             ::= orI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_orI_dojit[1, 2] = 3 OK
+
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r050 R4:R4   : parm 2: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 88 ------------------------
+{method}
+ - this oop:          0x00007fff1c4024c0
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_andcI_dojit'
+ - signature:         '(JJ)I'
+ - max stack:         4
+ - max locals:        4
+ - size of params:    4
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff8025d060: 0xbebe i2c: 0x00007fff7440d100 c2i: 0x00007fff7440d180 c2iUV: 0x00007fff7440d140 c2iNCI: 0x00007fff7440d1d0
+ - compiled entry     0x00007fff7440d180
+ - code size:         8
+ - code start:        0x00007fff1c402498
+ - code end (excl):   0x00007fff1c4024a0
+ - method data:       0x00007fff1c42f128
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4024a0
+   - line 130: 0
+ - localvar length:   2
+ - localvar start:    0x00007fff1c4024a6
+   - J a bci=0 len=8 slot=0
+   - J b bci=0 len=8 slot=2
+
+------------------------ OptoAssembly for Compile_id = 88 -----------------------
+#
+#  int ( long, half, long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 2 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     ANDW    R3, xori(<span class="hi-green">ConvL2I(R3)</span>, #-1), <span class="hi-green">ConvL2I(R4)</span>                  ::= andcI_reg_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_andcI_dojit[1, 2] = 2 OK
+
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 89 ------------------------
+{method}
+ - this oop:          0x00007fff1c402588
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_conv2B_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         11
+ - code start:        0x00007fff1c402568
+ - code end (excl):   0x00007fff1c402573
+ - method data:       0x00007fff1c42f250
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402573
+   - line 134: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c40257a
+   - J a bci=0 len=11 slot=0
+
+------------------------ OptoAssembly for Compile_id = 89 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 12 FRegPressure: 0 FHRP Index: 12
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     CNTLZW  R15, <span class="hi-green">ConvL2I(R3)</span>                                         ::= countLeadingZerosI
+02c     SRWI    R14, R15, (#5 &amp; 0x1f)                                    ::= urShiftI_reg_imm
+030     XORI    R3, R14, #1                                              ::= xorI_reg_uimm16
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_conv2B_dojit[0] = 0 OK
+dontinline_tc_conv2B_dojit[2] = 1 OK
+dontinline_tc_conv2B_dojit[3] = 1 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3   : parm 0: int
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 93 ------------------------
+{method}
+ - this oop:          0x00007fff1c402648
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_convL2II2L_dojit'
+ - signature:         '(I)I'
+ - max stack:         3
+ - max locals:        1
+ - size of params:    1
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff800b1930: 0xa i2c: 0x00007fff74464d00 c2i: 0x00007fff74464d80 c2iUV: 0x00007fff74464d40 c2iNCI: 0x00007fff74464dd0
+ - compiled entry     0x00007fff74464d80
+ - code size:         4
+ - code start:        0x00007fff1c402630
+ - code end (excl):   0x00007fff1c402634
+ - method data:       0x00007fff1c42f3a0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402634
+   - line 139: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c40263a
+   - I a bci=0 len=4 slot=0
+
+------------------------ OptoAssembly for Compile_id = 93 -----------------------
+#
+#  int ( int )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 9 FRegPressure: 0 FHRP Index: 9
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+03c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_convL2II2L_dojit[0] = 0 OK
+dontinline_tc_convL2II2L_dojit[2] = 2 OK
+dontinline_tc_convL2II2L_dojit[3] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 94 ------------------------
+{method}
+ - this oop:          0x00007fff1c402708
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_convL2I_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         3
+ - code start:        0x00007fff1c4026f0
+ - code end (excl):   0x00007fff1c4026f3
+ - method data:       0x00007fff1c42f4b0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4026f3
+   - line 143: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c4026fa
+   - J a bci=0 len=3 slot=0
+
+------------------------ OptoAssembly for Compile_id = 94 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     <span class="hi-pink">MR      R3, R3  /</span>/ long-&gt;int                                     ::= convL2I_reg
+028     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+03c     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_convL2I_dojit[0] = 0 OK
+dontinline_tc_convL2I_dojit[2] = 2 OK
+dontinline_tc_convL2I_dojit[3] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 95 ------------------------
+{method}
+ - this oop:          0x00007fff1c4027c8
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_convI2L_dojit'
+ - signature:         '(J)J'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         4
+ - code start:        0x00007fff1c4027b0
+ - code end (excl):   0x00007fff1c4027b4
+ - method data:       0x00007fff1c42f5c8
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c4027b4
+   - line 147: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c4027ba
+   - J a bci=0 len=4 slot=0
+
+------------------------ OptoAssembly for Compile_id = 95 -----------------------
+#
+#  long/half ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     EXTSW   R3, <span class="hi-green">ConvL2I(R3)</span>         // int-&gt;long                     ::= convI2L_reg
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_convI2L_dojit[0] = 0 OK
+dontinline_tc_convI2L_dojit[2] = 2 OK
+dontinline_tc_convI2L_dojit[3] = 3 OK
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 96 ------------------------
+{method}
+ - this oop:          0x00007fff1c402890
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_popcountI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         6
+ - code start:        0x00007fff1c402870
+ - code end (excl):   0x00007fff1c402876
+ - method data:       0x00007fff1c42f6e0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402876
+   - line 151: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c402882
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 96 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     POPCNTW R3, <span class="hi-green">ConvL2I(R3)</span>                                          ::= popCountI
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_popcountI_dojit[0] = 0 OK
+dontinline_tc_popcountI_dojit[2] = 1 OK
+dontinline_tc_popcountI_dojit[3] = 2 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 97 ------------------------
+{method}
+ - this oop:          0x00007fff1c402958
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_CountTrailingZerosI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         6
+ - code start:        0x00007fff1c402938
+ - code end (excl):   0x00007fff1c40293e
+ - method data:       0x00007fff1c42f830
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c40293e
+   - line 155: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c40294a
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 97 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     CNTTZW  R3, <span class="hi-green">ConvL2I(R3)</span>                                          ::= countTrailingZerosI_cnttzw
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_CountTrailingZerosI_dojit[0] = 32 OK
+dontinline_tc_CountTrailingZerosI_dojit[2] = 1 OK
+dontinline_tc_CountTrailingZerosI_dojit[3] = 0 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 98 ------------------------
+{method}
+ - this oop:          0x00007fff1c402a20
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_ReverseBytesI_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         6
+ - code start:        0x00007fff1c402a00
+ - code end (excl):   0x00007fff1c402a06
+ - method data:       0x00007fff1c42f980
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402a06
+   - line 159: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c402a12
+   - J a bci=0 len=6 slot=0
+
+------------------------ OptoAssembly for Compile_id = 98 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 10 FRegPressure: 0 FHRP Index: 10
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     BRW  R3, <span class="hi-green">ConvL2I(R3)</span>                                             ::= bytes_reverse_int
+02c     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+040     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_ReverseBytesI_dojit[0] = 0 OK
+dontinline_tc_ReverseBytesI_dojit[2] = 33554432 OK
+dontinline_tc_ReverseBytesI_dojit[3] = 50331648 OK
+
+
+============================= C2-compiled nmethod ==============================
+#r052 R3:R3   : parm 0: long
+#r283 R1+76: old out preserve
+#r282 R1+72: old out preserve
+#r281 R1+68: old out preserve
+#r280 R1+64: old out preserve
+#r279 R1+60: old out preserve
+#r278 R1+56: old out preserve
+#r277 R1+52: old out preserve
+#r276 R1+48: old out preserve
+# -- Old R1 -- Framesize: 48 --
+#r275 R1+44: pad2, stack alignment
+#r274 R1+40: pad2, stack alignment
+#r273 R1+36: Fixed slot 1
+#r272 R1+32: Fixed slot 0
+#r291 R1+28: new out preserve
+#r290 R1+24: new out preserve
+#r289 R1+20: new out preserve
+#r288 R1+16: new out preserve
+#r287 R1+12: new out preserve
+#r286 R1+ 8: new out preserve
+#r285 R1+ 4: new out preserve
+#r284 R1+ 0: new out preserve
+#
+----------------------- MetaData before Compile_id = 99 ------------------------
+{method}
+ - this oop:          0x00007fff1c402ae8
+ - method holder:     public 'TestL2I'
+ - constants:         0x00007fff1c400150 constant pool [324]/BSMs[20] {0x00007fff1c400150} for public 'TestL2I' cache=0x00007fff1c4037e8
+ - access:            0x8  static
+ - flags:             0x4080  queued_for_compilation has_loops_flag_init
+ - name:              'dontinline_tc_ReverseBytesUS_dojit'
+ - signature:         '(J)I'
+ - max stack:         3
+ - max locals:        2
+ - size of params:    2
+ - method size:       14
+ - vtable index:      -2
+ - i2i entry:         0x00007fff7435d180
+ - adapters:          AHE@0x00007fff802532e0: 0xbe i2c: 0x00007fff7441a700 c2i: 0x00007fff7441a780 c2iUV: 0x00007fff7441a740 c2iNCI: 0x00007fff7441a7d0
+ - compiled entry     0x00007fff7441a780
+ - code size:         7
+ - code start:        0x00007fff1c402ac8
+ - code end (excl):   0x00007fff1c402acf
+ - method data:       0x00007fff1c42fad0
+ - checked ex length: 0
+ - linenumber start:  0x00007fff1c402acf
+   - line 163: 0
+ - localvar length:   1
+ - localvar start:    0x00007fff1c402ada
+   - J a bci=0 len=7 slot=0
+
+------------------------ OptoAssembly for Compile_id = 99 -----------------------
+#
+#  int ( long, half )
+#
+000     N1: #   out( B1 ) &lt;- in( B1 )  Freq: 1 IDom: 0/#1 RegPressure: 0 IHRP Index: 1 FRegPressure: 0 FHRP Index: 1
+
+000     B1: #   out( N1 ) &lt;- BLOCK HEAD IS JUNK  Freq: 1 IDom: 0/#2 RegPressure: 1 IHRP Index: 11 FRegPressure: 0 FHRP Index: 11
+000     PROLOG
+        stack_overflow_check
+        save return pc
+        push frame -48
+        nmethod entry barrier
+                                                                         ::= Prolog
+028     EXTSH   R15, <span class="hi-green">ConvL2I(R3)</span>        // short-&gt;int                    ::= convS2I_reg
+02c     BRH   R3, R15
+        EXTSH R3, R3                                                     ::= bytes_reverse_short
+034     EPILOG
+        restore return pc
+        pop frame
+        safepoint poll
+                                                                         ::= Epilog
+048     BLR             // branch to link register                       ::= Ret
+
+--------------------------------------------------------------------------------
+dontinline_tc_ReverseBytesUS_dojit[0] = 0 OK
+dontinline_tc_ReverseBytesUS_dojit[2] = 512 OK
+dontinline_tc_ReverseBytesUS_dojit[3] = 768 OK
+</pre>
+        <div class="content-spacer"></div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
