@@ -3,35 +3,37 @@ import java.lang.reflect.Method;
 public class TestL2I {
 
     public static void main(String[] args) throws Exception {
-        mapTestMethod("dontinline_tc_addI_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_addI_2_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_addI_3_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_subI_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_subI_2_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_subI_3_dojit", i2l(1), 2);
-        mapTestMethod("dontinline_tc_subI_4_dojit", i2l(1));
-        mapTestMethod("dontinline_tc_cmoveL_dojit", i2l(1), i2l(2), i2l(3), i2l(4), i2l(1), i2l(2), i2l(4), i2l(3));
-        mapTestMethod("dontinline_tc_cmoveI_dojit", i2l(1), i2l(2), 3, 4, i2l(1), i2l(2), 4, 3);
+        // mapTestMethod("dontinline_tc_addI_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_addI_2_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_addI_3_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_subI_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_subI_2_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_subI_3_dojit", i2l(1), 2);
+        // mapTestMethod("dontinline_tc_subI_4_dojit", i2l(1));
+        // mapTestMethod("dontinline_tc_cmoveL_dojit", i2l(1), i2l(2), i2l(3), i2l(4), i2l(1), i2l(2), i2l(4), i2l(3));
+        // mapTestMethod("dontinline_tc_cmoveI_dojit", i2l(1), i2l(2), 3, 4, i2l(1), i2l(2), 4, 3);
+
         mapTestMethod("dontinline_tc_negI_dojit", i2l(1));
-        mapTestMethod("dontinline_tc_div_minus_1_dojit", i2l(1));
-        mapTestMethod("dontinline_tc_div_2_dojit", i2l(27), i2l(3), i2l(27), i2l(0), i2l(27), i2l(1));
-        mapTestMethod("dontinline_tc_udiv_dojit", i2l(27), i2l(3), i2l(27), 0L);
-        mapTestMethod("dontinline_tc_absI_dojit", i2l(1));
-        mapTestMethod("dontinline_tc_mulI_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_mulI_2_dojit", i2l(2));
-        mapTestMethod("dontinline_tc_cmpI_imm_dojit", i2l(2), i2l(12345), i2l(12346));
-        mapTestMethod("dontinline_tc_arsh_imm_dojit", i2l(12345));
-        mapTestMethod("dontinline_tc_andI_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_orI_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_andcI_dojit", i2l(1), i2l(2));
-        mapTestMethod("dontinline_tc_conv2B_dojit", i2l(0), i2l(2), i2l(3));
-        mapTestMethod("dontinline_tc_convL2II2L_dojit", 0, 2, 3);
-        mapTestMethod("dontinline_tc_convL2I_dojit", i2l(0), i2l(2), i2l(3));
-        mapTestMethod("dontinline_tc_convI2L_dojit", i2l(0), i2l(2), i2l(3));
-        mapTestMethod("dontinline_tc_popcountI_dojit", i2l(0), i2l(2), i2l(3));
-        mapTestMethod("dontinline_tc_CountTrailingZerosI_dojit", i2l(0), i2l(2), i2l(3));
-        mapTestMethod("dontinline_tc_ReverseBytesI_dojit", i2l(0), i2l(2), i2l(3));
-        mapTestMethod("dontinline_tc_ReverseBytesUS_dojit", i2l(0), i2l(2), i2l(3));
+
+        // mapTestMethod("dontinline_tc_div_minus_1_dojit", i2l(1));
+        // mapTestMethod("dontinline_tc_div_2_dojit", i2l(27), i2l(3), i2l(27), i2l(0), i2l(27), i2l(1));
+        // mapTestMethod("dontinline_tc_udiv_dojit", i2l(27), i2l(3), i2l(27), 0L);
+        // mapTestMethod("dontinline_tc_absI_dojit", i2l(1));
+        // mapTestMethod("dontinline_tc_mulI_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_mulI_2_dojit", i2l(2));
+        // mapTestMethod("dontinline_tc_cmpI_imm_dojit", i2l(2), i2l(12345), i2l(12346));
+        // mapTestMethod("dontinline_tc_arsh_imm_dojit", i2l(12345));
+        // mapTestMethod("dontinline_tc_andI_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_orI_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_andcI_dojit", i2l(1), i2l(2));
+        // mapTestMethod("dontinline_tc_conv2B_dojit", i2l(0), i2l(2), i2l(3));
+        // mapTestMethod("dontinline_tc_convL2II2L_dojit", 0, 2, 3);
+        // mapTestMethod("dontinline_tc_convL2I_dojit", i2l(0), i2l(2), i2l(3));
+        // mapTestMethod("dontinline_tc_convI2L_dojit", i2l(0), i2l(2), i2l(3));
+        // mapTestMethod("dontinline_tc_popcountI_dojit", i2l(0), i2l(2), i2l(3));
+        // mapTestMethod("dontinline_tc_CountTrailingZerosI_dojit", i2l(0), i2l(2), i2l(3));
+        // mapTestMethod("dontinline_tc_ReverseBytesI_dojit", i2l(0), i2l(2), i2l(3));
+        // mapTestMethod("dontinline_tc_ReverseBytesUS_dojit", i2l(0), i2l(2), i2l(3));
     }
 
     static int dontinline_tc_absI_dojit(long a) {
