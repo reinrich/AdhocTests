@@ -11,5 +11,7 @@
 	<classpathentry kind="src" path="synchronization"/>
 	<classpathentry kind="src" path="calls"/>
 	<classpathentry kind="src" path="int_ops"/>
+	<classpathentry kind="src" path="memordering"/>
+	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
