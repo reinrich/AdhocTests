@@ -16,10 +16,18 @@ public class TestBase {
     public void mapTestMethod(String tm, Object... args) throws Exception {
         Method m = lookupMethod(tm);
         int arity = m.getParameterCount();
-        if (args.length % arity != 0) {
-            throw new IllegalArgumentException("args.length (" + args.length + ") must be a multiple of tm arity (" + arity + ")");
+        int rounds;
+        if (arity == 0) {
+            if (args.length != 0) {
+                throw new IllegalArgumentException("tm has no parameters but args.length (" + args.length + ") != 0");
+            }
+            rounds = 1;
+        } else {
+            if (args.length % arity != 0) {
+                throw new IllegalArgumentException("args.length (" + args.length + ") must be a multiple of tm arity (" + arity + ")");
+            }
+            rounds = args.length / arity;
         }
-        int rounds = args.length / arity;
 
         // collect expected results from first round (before warmup)
         Object[] expected = new Object[rounds];
